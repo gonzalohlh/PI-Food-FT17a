@@ -3,7 +3,7 @@ const { Router } = require("express");
 // Ejemplo: const authRouter = require('./auth.js');
 require("dotenv").config();
 const axios = require("axios");
-const { API_KEY2 } = process.env;
+const { API_KEY } = process.env;
 const { Recipe, Diet } = require("../db");
 const { v4: uuidv4 } = require("uuid");
 
@@ -14,7 +14,7 @@ const router = Router();
 const getApiInfo = async () => {
   // try {
   const apiInfo = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY2}&addRecipeInformation=true&number=100`
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
   );
   //console.log(apiInfo.data.results);
   /* console.log(apiUrl);
@@ -63,14 +63,14 @@ const getAllRecipes = async () => {
 
 router.get("/recipes", async (req, res) => {
   const { name } = req.query;
-  let recipesTotal = await getAllRecipes();
+  const recipesTotal = await getAllRecipes();
   if (name) {
     let recipeTitle = await recipesTotal.filter((r) =>
       r.title.toLowerCase().includes(name.toLowerCase())
     );
     recipeTitle.length
       ? res.status(200).json(recipeTitle)
-      : res.status(400).send("This recipe does not exist");
+      : res.status(400).send("This recipe doesn't exist");
   } else {
     res.status(200).json(recipesTotal);
   }
@@ -78,7 +78,7 @@ router.get("/recipes", async (req, res) => {
 
 router.get("/types", async (req, res) => {
   const recipesApi = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY2}&addRecipeInformation=true&number=100`
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
   );
   const types = await recipesApi.data.results.map((t) => t.diets);
   const diets = types.flat();

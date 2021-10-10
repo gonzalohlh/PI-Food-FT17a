@@ -1,17 +1,26 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipes, getByTypeOfDiet } from "../actions";
+import {
+  getRecipes,
+  filterByDiet,
+  getTypesOfDiet,
+  orderByName,
+} from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginate from "./Paginate";
+import SearchBar from "./SearchBar";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allRecipes = useSelector((state) => state.recipes);
-  const diet = useSelector((state) => state.diets);
+  const diets = useSelector((state) => state.diets);
+  //paginado:
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage, setRecipesPerPage] = useState(9);
+  const [orderName, setOrderName] = useState("");
+
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = allRecipes.slice(
@@ -27,20 +36,31 @@ export default function Home() {
     dispatch(getRecipes());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getTypesOfDiet());
+  }, [dispatch]);
+
   function handleClick(e) {
     e.preventDefault();
     dispatch(getRecipes());
   }
 
-  /* function handleSelectTypeOfDiet(e) {
+  function handleSelectTypeOfDiet(e) {
     e.preventDefault();
-    dispatch(getByTypeOfDiet(e.target.value));
-  } */
+    dispatch(filterByDiet(e.target.value));
+  }
+
+  function handleSelectByName(e) {
+    e.preventDefault();
+    dispatch(orderByName(e.target.value));
+    setCurrentPage(1);
+    setOrderName("Order" + e.target.value);
+  }
 
   return (
     <div>
-      <Link to="/recipe">Create your recipe</Link>
       <h1>LET'S COOK!</h1>
+      <SearchBar />
       <button
         onClick={(e) => {
           handleClick(e);
@@ -49,54 +69,56 @@ export default function Home() {
         Show all recipes
       </button>
       <div>
-        {/* <select onChange={(e) => handleSelectTypeOfDiet(e)}>
-          {diet.map((diet) => (
-            <option value={diet.name} key={diet.id}>
-              {diet.name}
-            </option>
-          ))}
-        </select> */}
-        <select>
+        <span>Order by Recipe Name</span>
+        <select onChange={(n) => handleSelectByName(n)}>
+          <option value="default">All</option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
         </select>
+        <span>Order by Score</span>
         <select>
+          <option value="default">All</option>
           <option value="Asc">Highest Score</option>
           <option value="Desc">Lowest Score</option>
         </select>
-        <select>
-          <option value="AllDiets">All Diets</option>
-          <option value="DairyFree">Dairy Free</option>
-          <option value="GlutenFree">Gluten Free</option>
-          <option value="LactoOvoVeg">Lacto Ovo Vegetarian</option>
-          <option value="Primal">Primal</option>
-          <option value="Pescatarian">Pescatarian</option>
-          <option value="Whole30">Whole30</option>
-          <option value="FodmapFriendly">Fodmap Friendly</option>
-          <option value="Paleolithic">Paleolithic</option>
-          <option value="Vegan">Vegan</option>
-          <option value="Vegetarian">Vegetarian</option>
+        <span>Filter by Diet</span>
+        <select onChange={(e) => handleSelectTypeOfDiet(e)}>
+          <option value="default">All Diets</option>
+          {diets.map((d) => (
+            <option value={d.name} key={d.id}>
+              {d.name}
+            </option>
+          ))}
         </select>
         <Paginate
           recipesPerPage={recipesPerPage}
           allRecipes={allRecipes.length}
           paginate={paginate}
         />
-        {currentRecipes?.map((c) => {
-          return (
-            <div>
-              <Link to={"/home/" + c.id}>
-                <Card
-                  title={c.title}
-                  image={c.image}
-                  diets={c.diets}
-                  key={c.id}
-                />
-                ;
-              </Link>
-            </div>
-          );
-        })}
+        <Link to="/recipe">Create your recipe</Link>
+        {currentRecipes?.map((c) => (
+          <div key={c.id}>
+            <Link to={"/home/" + c.id}>
+              <Card
+                title={c.title}
+                image={
+                  c.image ? (
+                    c.image
+                  ) : (
+                    <img src="../recipeDefalut.jpg" alt="Img not provided" />
+                  )
+                }
+                diets={
+                  c.createDb
+                    ? c.diets.map((d) => <p key={d.name}>{d.name}</p>)
+                    : c.diets.map((d) => <p hey={d}>{d}</p>)
+                }
+                vegetarian={c.vegetarian === true ? <p>vegetarian</p> : <p></p>}
+              />
+              ;
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
   );
