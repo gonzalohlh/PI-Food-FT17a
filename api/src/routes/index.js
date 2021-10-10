@@ -3,7 +3,7 @@ const { Router } = require("express");
 // Ejemplo: const authRouter = require('./auth.js');
 require("dotenv").config();
 const axios = require("axios");
-const { API_KEY } = process.env;
+const { API_KEY2 } = process.env;
 const { Recipe, Diet } = require("../db");
 const { v4: uuidv4 } = require("uuid");
 
@@ -14,7 +14,7 @@ const router = Router();
 const getApiInfo = async () => {
   // try {
   const apiInfo = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY2}&addRecipeInformation=true&number=100`
   );
   //console.log(apiInfo.data.results);
   /* console.log(apiUrl);
@@ -78,7 +78,7 @@ router.get("/recipes", async (req, res) => {
 
 router.get("/types", async (req, res) => {
   const recipesApi = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY2}&addRecipeInformation=true&number=100`
   );
   const types = await recipesApi.data.results.map((t) => t.diets);
   const diets = types.flat();

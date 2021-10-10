@@ -12,9 +12,9 @@ export function getRecipes() {
   };
 }
 
-/* export function getByTypeOfDiet(payload) {
+export function getFilterByDiet(payload) {
   return {
-    type: GET_BY_TYPE_OF_DIET,
+    type: "GET_FILTER_BY__DIET",
     payload,
   };
-} */
+}

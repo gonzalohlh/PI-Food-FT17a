@@ -4,11 +4,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRecipes, getByTypeOfDiet } from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
+import Paginate from "./Paginate";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allRecipes = useSelector((state) => state.recipes);
   const diet = useSelector((state) => state.diets);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recipesPerPage, setRecipesPerPage] = useState(9);
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = allRecipes.slice(
+    indexOfFirstRecipe,
+    indexOfLastRecipe
+  );
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     dispatch(getRecipes());
@@ -64,7 +77,12 @@ export default function Home() {
           <option value="Vegan">Vegan</option>
           <option value="Vegetarian">Vegetarian</option>
         </select>
-        {allRecipes?.map((c) => {
+        <Paginate
+          recipesPerPage={recipesPerPage}
+          allRecipes={allRecipes.length}
+          paginate={paginate}
+        />
+        {currentRecipes?.map((c) => {
           return (
             <div>
               <Link to={"/home/" + c.id}>

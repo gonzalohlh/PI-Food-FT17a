@@ -9,6 +9,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         recipes: action.payload,
       };
+    case "GET_FILTER_BY__DIET":
+      return {
+        ...state,
+        recipes: action.payload,
+      };
 
     default:
       return state;
