@@ -6,6 +6,7 @@ import {
   filterByDiet,
   getTypesOfDiet,
   orderByName,
+  orderByScoreLikes,
 } from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
@@ -20,6 +21,7 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage, setRecipesPerPage] = useState(9);
   const [orderName, setOrderName] = useState("");
+  const [orderLike, setOrderLike] = useState("");
 
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
@@ -57,6 +59,13 @@ export default function Home() {
     setOrderName("Order" + e.target.value);
   }
 
+  function handleSelectByScore(e) {
+    e.preventDefault();
+    dispatch(orderByScoreLikes(e.target.value));
+    setCurrentPage(1);
+    setOrderLike("Order" + e.target.value);
+  }
+
   return (
     <div>
       <h1>LET'S COOK!</h1>
@@ -76,8 +85,8 @@ export default function Home() {
           <option value="Z-A">Z-A</option>
         </select>
         <span>Order by Score</span>
-        <select>
-          <option value="default">All</option>
+        <select onChange={(s) => handleSelectByScore(s)}>
+          <option value="All">All</option>
           <option value="Asc">Highest Score</option>
           <option value="Desc">Lowest Score</option>
         </select>
@@ -109,7 +118,7 @@ export default function Home() {
                   )
                 }
                 diets={
-                  c.createDb
+                  c.createdDb
                     ? c.diets.map((d) => <p key={d.name}>{d.name}</p>)
                     : c.diets.map((d) => <p hey={d}>{d}</p>)
                 }

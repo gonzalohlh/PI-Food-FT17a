@@ -15,13 +15,14 @@ export default function SearchBar() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getNameRecipe(name));
-    //setName("");
+    setName("");
   }
 
   return (
     <div>
       <input
         type="text"
+        value={name}
         placeholder="Search recipe"
         onChange={(e) => handleInputChange(e)}
       />

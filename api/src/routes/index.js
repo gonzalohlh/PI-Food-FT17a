@@ -5,7 +5,6 @@ require("dotenv").config();
 const axios = require("axios");
 const { API_KEY } = process.env;
 const { Recipe, Diet } = require("../db");
-const { v4: uuidv4 } = require("uuid");
 
 const router = Router();
 
@@ -14,7 +13,7 @@ const router = Router();
 const getApiInfo = async () => {
   // try {
   const apiInfo = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=15`
   );
   //console.log(apiInfo.data.results);
   /* console.log(apiUrl);
@@ -45,8 +44,9 @@ const getApiInfo = async () => {
 
 const getDbInfo = async () => {
   return await Recipe.findAll({
-    incude: {
+    include: {
       model: Diet,
+      attributes: ["name"],
       through: {
         attributes: [],
       },
@@ -78,7 +78,7 @@ router.get("/recipes", async (req, res) => {
 
 router.get("/types", async (req, res) => {
   const recipesApi = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=15`
   );
   const types = await recipesApi.data.results.map((t) => t.diets);
   const diets = types.flat();
@@ -96,7 +96,7 @@ router.post("/recipe", async (req, res) => {
   let {
     title,
     summary,
-    spoonacularScore,
+    aggregateLikes,
     healthScore,
     analyzedInstructions,
     image,
@@ -108,11 +108,10 @@ router.post("/recipe", async (req, res) => {
   let recipeCreated = await Recipe.create({
     title,
     summary,
-    spoonacularScore,
+    aggregateLikes,
     healthScore,
     analyzedInstructions,
     image,
-    id: uuidv4(),
   });
   let dietDb = await Diet.findAll({ where: { name: diets } });
   recipeCreated.addDiet(dietDb);

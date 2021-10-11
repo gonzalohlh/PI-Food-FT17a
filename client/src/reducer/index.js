@@ -3,7 +3,10 @@ import {
   FILTER_BY_DIET,
   GET_TYPES_OF_DIET,
   ORDER_BY_NAME,
+  ORDER_BY_SCORE_LIKES,
   GET_NAME_RECIPE,
+  GET_DIETS,
+  POST_RECIPE,
 } from "../actions";
 
 const initialState = {
@@ -75,10 +78,29 @@ function rootReducer(state = initialState, action) {
         recipes:
           action.payload === "default" ? state.allRecipes : sortedRecipes,
       };
+    case ORDER_BY_SCORE_LIKES:
+      let totRecipes = [...state.allRecipes];
+      let orderedRecipes =
+        action.payload === "Desc"
+          ? totRecipes.sort((a, b) => a.aggregateLikes - b.aggregateLikes)
+          : totRecipes.sort((a, b) => b.aggregateLikes - a.aggregateLikes);
+      return {
+        ...state,
+        recipes: action.payload === "All" ? state.allRecipes : orderedRecipes,
+      };
     case GET_NAME_RECIPE:
       return {
         ...state,
         recipes: action.payload,
+      };
+    case GET_DIETS:
+      return {
+        ...state,
+        diets: action.payload,
+      };
+    case POST_RECIPE:
+      return {
+        ...state,
       };
 
     default:
