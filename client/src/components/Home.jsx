@@ -17,22 +17,21 @@ export default function Home() {
   const dispatch = useDispatch();
   const allRecipes = useSelector((state) => state.recipes);
   const diets = useSelector((state) => state.diets);
-  //paginado:
+  //Paginado:
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage, setRecipesPerPage] = useState(9);
-  const [orderName, setOrderName] = useState("");
-  const [orderLike, setOrderLike] = useState("");
-
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = allRecipes.slice(
     indexOfFirstRecipe,
     indexOfLastRecipe
   );
-
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  const [orderName, setOrderName] = useState("");
+  const [orderLike, setOrderLike] = useState("");
 
   useEffect(() => {
     dispatch(getRecipes());
@@ -114,7 +113,10 @@ export default function Home() {
                   c.image ? (
                     c.image
                   ) : (
-                    <img src="../recipeDefalut.jpg" alt="Img not provided" />
+                    <img
+                      src="https://image.freepik.com/foto-gratis/fondo-alimentos-concepto-alimentos-varios-sabrosos-ingredientes-frescos-cocinar-ingredientes-italianos-comida-vista-arriba_1220-1493.jpg"
+                      alt="Img not provided"
+                    />
                   )
                 }
                 diets={
@@ -124,11 +126,15 @@ export default function Home() {
                 }
                 vegetarian={c.vegetarian === true ? <p>vegetarian</p> : <p></p>}
               />
-              ;
             </Link>
           </div>
         ))}
       </div>
+      <Paginate
+        recipesPerPage={recipesPerPage}
+        allRecipes={allRecipes.length}
+        paginate={paginate}
+      />
     </div>
   );
 }

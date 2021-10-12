@@ -2,8 +2,8 @@ import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
-import RecipeCreate from "./components/RecipeCreate";
 import Detail from "./components/Detail";
+import RecipeCreate from "./components/RecipeCreate";
 
 function App() {
   return (
@@ -11,9 +11,9 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route path="/home" component={Home} />
-          <Route path="/recipe" component={RecipeCreate} />
+          <Route exact path="/home" component={Home} />
           <Route path="/home/:id" component={Detail} />
+          <Route path="/recipe" component={RecipeCreate} />
         </Switch>
       </div>
     </BrowserRouter>

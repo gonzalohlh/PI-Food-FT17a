@@ -8,6 +8,7 @@ export const ORDER_BY_SCORE_LIKES = "ORDER_BY_SCORE_LIKES";
 export const GET_NAME_RECIPE = "GET_NAME_RECIPE";
 export const GET_DIETS = "GET_DIETS";
 export const POST_RECIPE = "POST_RECIPE";
+export const GET_DETAIL = "GET_DETAIL";
 
 export function getRecipes() {
   return async function (dispatch) {
@@ -84,8 +85,22 @@ export function postRecipe(payload) {
   return async function () {
     const json = await axios.post("http://localhost:3001/recipe", payload);
     return {
-      type: POST_RECIPE,
+      type: "POST_RECIPE",
       json,
     };
+  };
+}
+
+export function getDetail(id) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.get("http://localhost:3001/recipes/" + id);
+      return dispatch({
+        type: "GET_DETAIL",
+        payload: json.data,
+      });
+    } catch (error) {
+      alert("Id recipe not found");
+    }
   };
 }

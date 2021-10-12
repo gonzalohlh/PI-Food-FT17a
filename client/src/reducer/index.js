@@ -7,12 +7,14 @@ import {
   GET_NAME_RECIPE,
   GET_DIETS,
   POST_RECIPE,
+  GET_DETAIL,
 } from "../actions";
 
 const initialState = {
   recipes: [],
   allRecipes: [],
   diets: [],
+  detail: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -101,6 +103,11 @@ function rootReducer(state = initialState, action) {
     case POST_RECIPE:
       return {
         ...state,
+      };
+    case GET_DETAIL:
+      return {
+        ...state,
+        detail: action.payload,
       };
 
     default:
