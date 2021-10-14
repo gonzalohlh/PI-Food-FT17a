@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginate from "./Paginate";
 import SearchBar from "./SearchBar";
+import "../styles/Home.css";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -66,30 +67,32 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <h1>LET'S COOK!</h1>
+    <div className="home">
+      <h1>THE WIKIPEDIA OF RECIPES...</h1>
       <SearchBar />
-      <button
-        onClick={(e) => {
-          handleClick(e);
-        }}
-      >
-        Show all recipes
-      </button>
-      <div>
-        <span>Order by Recipe Name</span>
+      <div className="showAll">
+        <button
+          onClick={(e) => {
+            handleClick(e);
+          }}
+        >
+          Show all recipes
+        </button>
+      </div>
+      <div className="select">
+        <span className="span">Order by Recipe Name</span>
         <select onChange={(n) => handleSelectByName(n)}>
           <option value="default">All</option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
         </select>
-        <span>Order by Score</span>
+        <span className="span">Order by Score</span>
         <select onChange={(s) => handleSelectByScore(s)}>
           <option value="All">All</option>
           <option value="Asc">Highest Score</option>
           <option value="Desc">Lowest Score</option>
         </select>
-        <span>Filter by Diet</span>
+        <span className="span">Filter by Diet</span>
         <select onChange={(e) => handleSelectTypeOfDiet(e)}>
           <option value="default">All Diets</option>
           {diets.map((d) => (
@@ -98,15 +101,21 @@ export default function Home() {
             </option>
           ))}
         </select>
+      </div>
+      <div className="paginate">
         <Paginate
           recipesPerPage={recipesPerPage}
           allRecipes={allRecipes.length}
           paginate={paginate}
         />
-        <Link to="/recipe">Create your recipe</Link>
+      </div>
+      <Link to="/recipe" className="linkCreate">
+        Create your recipe
+      </Link>
+      <div className="cards">
         {currentRecipes?.map((c) => (
-          <div key={c.id}>
-            <Link to={"/home/" + c.id}>
+          <div key={c.id} className="card">
+            <Link to={"/home/" + c.id} className="linkCard">
               <Card
                 title={c.title}
                 image={
@@ -130,11 +139,13 @@ export default function Home() {
           </div>
         ))}
       </div>
-      <Paginate
-        recipesPerPage={recipesPerPage}
-        allRecipes={allRecipes.length}
-        paginate={paginate}
-      />
+      <div className="paginate">
+        <Paginate
+          recipesPerPage={recipesPerPage}
+          allRecipes={allRecipes.length}
+          paginate={paginate}
+        />
+      </div>
     </div>
   );
 }
