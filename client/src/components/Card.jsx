@@ -24,3 +24,5 @@ export default function Card({ title, image, diets, vegetarian, score }) {
     </div>
   );
 }
+
+//bofijon349@wawue.com

@@ -136,7 +136,7 @@ export default function Home() {
                         </p>
                       ))
                     : c.diets.map((d) => (
-                        <p hey={d} className="dietsMap">
+                        <p key={d} className="dietsMap">
                           {d}
                         </p>
                       ))

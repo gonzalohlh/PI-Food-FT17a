@@ -17,7 +17,8 @@
   width: 20rem;
 }
 ::placeholder {
-  color: rgb(241, 240, 231);
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
 }
 
 .btn {

@@ -80,7 +80,6 @@ function rootReducer(state = initialState, action) {
         recipes: action.payload === "default" ? state.recipes : sortedRecipes,
       };
     case ORDER_BY_SCORE_LIKES:
-      /*  let totRecipes = [...state.allRecipes]; */
       let orderedRecipes =
         action.payload === "Desc"
           ? state.recipes.sort((a, b) => a.aggregateLikes - b.aggregateLikes)

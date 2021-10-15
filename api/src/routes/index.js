@@ -13,7 +13,7 @@ const router = Router();
 
 const getApiInfo = async () => {
   const apiInfo = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=36`
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
   );
   return apiInfo.data.results;
 };
@@ -54,7 +54,7 @@ router.get("/recipes", async (req, res) => {
 
 router.get("/types", async (req, res) => {
   const recipesApi = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=45`
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
   );
   const types = await recipesApi.data.results.map((t) => t.diets);
   const diets = types.flat();

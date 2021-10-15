@@ -14,7 +14,7 @@ function validate(input) {
     : (errors.summary = "You must provide a summary");
   input.diets.length < 1
     ? (errors.diets = "Choose at least one diet")
-    : (errors.diets = []);
+    : (errors.diets = "");
   if (!input.image.includes("https://") && !input.image.includes("http://")) {
     errors.image = "This isn't a valid image address";
   } else {
@@ -69,7 +69,7 @@ export default function RecipeCreate() {
     );
   }
 
-  function handleSubmit(e) {
+  /*  function handleSubmit(e) {
     if (
       input.title === "" ||
       input.summary === "" ||
@@ -95,6 +95,26 @@ export default function RecipeCreate() {
         diets: [],
       });
       history.push("/home");
+    }
+  } */
+  function handleSubmit(e) {
+    if (input.title && input.summary && input.image && input.diets.length > 0) {
+      e.preventDefault();
+      dispatch(postRecipe(input));
+      alert("Recipe succesfully Created!!");
+      setInput({
+        title: "",
+        summary: "",
+        aggregateLikes: 0,
+        healthScore: 0,
+        analyzedInstructions: "",
+        image: "",
+        diets: [],
+      });
+      history.push("/home");
+    } else {
+      e.preventDefault();
+      alert("You must complete every field!!");
     }
   }
 
