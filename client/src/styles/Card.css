@@ -1,0 +1,54 @@
+.cardComp {
+  border: 1px solid rgb(230, 226, 204);
+  background-image: url("../assets/bkgDetail.jpg");
+  background-position: absolute;
+  background: cover;
+  box-shadow: 2px 2px 2px rgb(223, 208, 124);
+  color: #444;
+  display: inline-block;
+  margin: 2%;
+  padding: 1em;
+  vertical-align: top;
+  width: 33, 5%;
+}
+
+.cardComp h3 {
+  display: flex;
+  text-align: center;
+  width: 250px;
+  margin-top: 5px;
+  color: rgb(223, 208, 124);
+  text-shadow: rgb(19, 19, 18) -1px 1px;
+}
+
+.cardComp h3:hover {
+  text-decoration: underline darkslategrey;
+  color: rgb(69, 70, 63);
+  text-shadow: rgb(223, 208, 124) -0.5px 0.5px;
+}
+.cardComp img {
+  display: flex;
+  margin-left: 20%;
+}
+
+.cardComp img:hover {
+  border: 2px outset rgba(119, 98, 28, 0.8);
+}
+
+.typeOfD {
+  color: rgb(223, 208, 124);
+  text-decoration: underline;
+  margin-bottom: 7px;
+  margin-top: 9px;
+}
+
+.diets {
+  color: rgb(223, 208, 124);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.score {
+  color: rgb(223, 208, 124);
+  float: right;
+}

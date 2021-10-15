@@ -8,7 +8,7 @@ export default function LandingPage() {
       <h1>Welcome to FUN RECIPES!</h1>
       <h2>Here you can search for your favorite recipes or create your own!</h2>
       <div>
-        <Link to="./home" className="btn">
+        <Link to="./home" className="btnLan">
           <button>LET'S GO!</button>
         </Link>
       </div>

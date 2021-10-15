@@ -54,10 +54,10 @@ function rootReducer(state = initialState, action) {
         //if, else if, else
       };
     case ORDER_BY_NAME:
-      let totalRecipes = [...state.allRecipes];
+      /*  let totalRecipes = [...state.allRecipes]; */
       let sortedRecipes =
         action.payload === "A-Z"
-          ? totalRecipes.sort(function (a, b) {
+          ? state.recipes.sort(function (a, b) {
               if (a.title.toLowerCase() > b.title.toLowerCase()) {
                 return 1;
               }
@@ -66,7 +66,7 @@ function rootReducer(state = initialState, action) {
               }
               return 0;
             })
-          : totalRecipes.sort(function (a, b) {
+          : state.recipes.sort(function (a, b) {
               if (a.title.toLowerCase() < b.title.toLowerCase()) {
                 return 1;
               }
@@ -77,18 +77,17 @@ function rootReducer(state = initialState, action) {
             });
       return {
         ...state,
-        recipes:
-          action.payload === "default" ? state.allRecipes : sortedRecipes,
+        recipes: action.payload === "default" ? state.recipes : sortedRecipes,
       };
     case ORDER_BY_SCORE_LIKES:
-      let totRecipes = [...state.allRecipes];
+      /*  let totRecipes = [...state.allRecipes]; */
       let orderedRecipes =
         action.payload === "Desc"
-          ? totRecipes.sort((a, b) => a.aggregateLikes - b.aggregateLikes)
-          : totRecipes.sort((a, b) => b.aggregateLikes - a.aggregateLikes);
+          ? state.recipes.sort((a, b) => a.aggregateLikes - b.aggregateLikes)
+          : state.recipes.sort((a, b) => b.aggregateLikes - a.aggregateLikes);
       return {
         ...state,
-        recipes: action.payload === "All" ? state.allRecipes : orderedRecipes,
+        recipes: action.payload === "All" ? state.recipes : orderedRecipes,
       };
     case GET_NAME_RECIPE:
       return {

@@ -1,0 +1,121 @@
+.home {
+  margin: 0;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  background-image: url("../assets/bkgHome.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: "Comic Neue", cursive;
+}
+
+.home h1 {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 30px;
+  font-style: Bold 700 italic;
+  color: rgb(211, 194, 102);
+  text-shadow: rgb(19, 19, 18) -3px 1px;
+}
+
+.linkCreate {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 7vw;
+  color: rgb(223, 208, 124);
+}
+.btnCreate {
+  border: solid 2px transparent;
+  border-color: rgb(223, 208, 124);
+  border-width: 0.5px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  padding: 0;
+  height: 25px;
+  background-color: transparent;
+  transition: background-color 0.25s, color 0.25s;
+  cursor: pointer;
+  color: rgb(223, 208, 124);
+  font-size: 1rem;
+}
+.btnCreate:hover {
+  background-color: #572c03ab;
+  color: rgb(211, 194, 102);
+}
+.linkCreate {
+  text-decoration: none;
+}
+
+.showAll {
+  display: flex;
+  justify-content: center;
+  margin-top: 0px;
+}
+.showAll button {
+  padding-left: 5px;
+  padding-right: 5px;
+  background: rgb(121, 123, 126);
+  border-style: solid;
+  border-bottom-width: 1px;
+  transition: background-color 0.25s;
+  border-radius: 5px;
+  color: rgb(224, 222, 206);
+  cursor: pointer;
+}
+.showAll button:hover {
+  background-color: rgb(197, 183, 104);
+  color: rgb(46, 43, 24);
+}
+
+.select {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.span {
+  display: flex;
+  margin-right: 6px;
+  margin-left: 20px;
+  color: rgb(223, 208, 124);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.paginate {
+  margin-bottom: 20px;
+}
+.paginate button {
+  background-color: rgb(121, 123, 126);
+  border-color: rgb(197, 177, 65);
+}
+.paginate button:hover {
+  background-color: rgb(197, 183, 104);
+  color: rgb(46, 43, 24);
+}
+
+.cards {
+  margin-left: 7%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 60px;
+}
+
+.linkCard {
+  text-decoration: none;
+}
+
+.dietsMap {
+  margin-top: 2px;
+  margin-bottom: 0;
+}

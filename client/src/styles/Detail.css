@@ -1,0 +1,74 @@
+.detail {
+  background-image: url("../assets/bkgDetail.jpg");
+  margin: 0;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: "Comic Neue", cursive;
+  color: rgb(223, 208, 124);
+}
+
+.detail button {
+  border-color: rgb(223, 208, 124);
+  border: solid 2px;
+  border-width: 0.5px;
+  border-radius: 100px;
+  background-color: rgb(88, 72, 45);
+  transition: background-color 0.25s, color 0.25s;
+  padding: 7px;
+  margin-top: 10px;
+  margin-left: 90%;
+  margin-bottom: 0px;
+  font-family: "Comic Neue", cursive;
+  cursor: pointer;
+  color: rgb(223, 208, 124);
+}
+.detail button:hover {
+  background-color: rgb(126, 123, 126);
+  color: white;
+  border: 2px outset rgba(119, 98, 28, 0.8);
+}
+
+.detail h1 {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  font-size: 35px;
+  font-family: "Comic Neue", cursive;
+}
+
+.detail img {
+  width: 250px;
+  height: 250px;
+  margin-left: 39%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.h3-2 h3,
+h2 {
+  display: flex;
+  justify-content: left;
+  margin-left: 10%;
+}
+
+.details h3 {
+  margin-left: 10%;
+}
+
+.details p {
+  margin-left: 17%;
+  margin-right: 17%;
+  background-color: rgba(44, 38, 6, 0.8);
+  padding: 2%;
+}
+
+.details ul {
+  margin-left: 17%;
+  margin-right: 17%;
+  background-color: rgba(51, 45, 9, 0.8);
+  padding: 2%;
+}

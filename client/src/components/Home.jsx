@@ -70,6 +70,9 @@ export default function Home() {
     <div className="home">
       <h1>THE WIKIPEDIA OF RECIPES...</h1>
       <SearchBar />
+      <Link to="/recipe" className="linkCreate">
+        <button className="btnCreate">Create your recipe</button>
+      </Link>
       <div className="showAll">
         <button
           onClick={(e) => {
@@ -92,7 +95,7 @@ export default function Home() {
           <option value="Asc">Highest Score</option>
           <option value="Desc">Lowest Score</option>
         </select>
-        <span className="span">Filter by Diet</span>
+        <span className="span">Filter by Type of diet</span>
         <select onChange={(e) => handleSelectTypeOfDiet(e)}>
           <option value="default">All Diets</option>
           {diets.map((d) => (
@@ -109,12 +112,9 @@ export default function Home() {
           paginate={paginate}
         />
       </div>
-      <Link to="/recipe" className="linkCreate">
-        Create your recipe
-      </Link>
       <div className="cards">
         {currentRecipes?.map((c) => (
-          <div key={c.id} className="card">
+          <div key={c.id}>
             <Link to={"/home/" + c.id} className="linkCard">
               <Card
                 title={c.title}
@@ -130,10 +130,25 @@ export default function Home() {
                 }
                 diets={
                   c.createdDb
-                    ? c.diets.map((d) => <p key={d.name}>{d.name}</p>)
-                    : c.diets.map((d) => <p hey={d}>{d}</p>)
+                    ? c.diets.map((d) => (
+                        <p key={d.name} className="dietsMap">
+                          {d.name}
+                        </p>
+                      ))
+                    : c.diets.map((d) => (
+                        <p hey={d} className="dietsMap">
+                          {d}
+                        </p>
+                      ))
                 }
-                vegetarian={c.vegetarian === true ? <p>vegetarian</p> : <p></p>}
+                vegetarian={
+                  c.vegetarian === true ? (
+                    <p className="dietsMap">vegetarian</p>
+                  ) : (
+                    <p></p>
+                  )
+                }
+                score={c.aggregateLikes}
               />
             </Link>
           </div>
